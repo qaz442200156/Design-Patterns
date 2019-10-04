@@ -1,3 +1,9 @@
 DesignPatterns/Library
 Temp
 Logs
+.vs
+.vs/*
+.vscode
+.vscode/*
+.csproj
+.sln
