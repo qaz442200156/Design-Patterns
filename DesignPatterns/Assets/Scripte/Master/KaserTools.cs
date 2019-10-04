@@ -1,0 +1,7 @@
+﻿
+namespace KaserTools
+{
+    namespace StrategyPattern {
+
+    }
+}
