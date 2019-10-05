@@ -1,13 +1,13 @@
 ﻿<Properties StartupConfiguration="{FD1B12FD-5FC7-045D-4E2D-0A88B837B0F0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripte/Master/KaserTools.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripte/DesignPatterns/StrategyPattern/RPG/CharacterMain.cs">
     <Files>
       <File FileName="Assets/Scripte/Master/KaserTools.cs" Line="4" Column="30" />
-      <File FileName="Assets/Scripte/DesignPatterns/Duck_A.cs" Line="3" Column="1" />
-      <File FileName="Assets/Scripte/DesignPatterns/Duck_B.cs" Line="6" Column="2" />
-      <File FileName="Assets/Scripte/DesignPatterns/DuckMain.cs" Line="5" Column="17" />
-      <File FileName="Assets/Scripte/DesignPatterns/StrategyPattern/Base/FlyBehavior.cs" Line="2" Column="1" />
-      <File FileName="Assets/Scripte/DesignPatterns/StrategyPattern/Base/Duck.cs" Line="36" Column="36" />
-      <File FileName="Assets/Scripte/DesignPatterns/StrategyPattern/Base/QuackBehavior.cs" Line="2" Column="3" />
+      <File FileName="Assets/Scripte/DesignPatterns/StrategyPattern/RPG/Base/Human.cs" Line="48" Column="63" />
+      <File FileName="Assets/Scripte/DesignPatterns/StrategyPattern/RPG/Base/CharacterBehavior.cs" Line="89" Column="19" />
+      <File FileName="Assets/Scripte/DesignPatterns/StrategyPattern/RPG/Base/WeaponBehavior.cs" Line="32" Column="18" />
+      <File FileName="Assets/Scripte/DesignPatterns/StrategyPattern/RPG/Base/Ｗeapon.cs" Line="11" Column="82" />
+      <File FileName="Assets/Scripte/DesignPatterns/StrategyPattern/RPG/Character.cs" Line="7" Column="25" />
+      <File FileName="Assets/Scripte/DesignPatterns/StrategyPattern/RPG/CharacterMain.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -19,7 +19,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="6a63ea7f-163b-45ea-adb1-515dfa372f99" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="ca21330a-ca01-4520-b941-5c021e69bc09" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

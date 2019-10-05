@@ -63,12 +63,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\Base\Duck.cs" />
-    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\Base\FlyBehavior.cs" />
-    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\Base\QuackBehavior.cs" />
-    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\Duck_A.cs" />
-    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\Duck_B.cs" />
-    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\DuckMain.cs" />
+    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\Book\Base\Duck.cs" />
+    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\Book\Base\FlyBehavior.cs" />
+    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\Book\Base\QuackBehavior.cs" />
+    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\Book\Duck_A.cs" />
+    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\Book\Duck_B.cs" />
+    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\Book\DuckMain.cs" />
+    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\RPG\Base\CharacterBehavior.cs" />
+    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\RPG\Base\Human.cs" />
+    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\RPG\Base\Ｗeapon.cs" />
+    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\RPG\Base\WeaponBehavior.cs" />
+    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\RPG\CharacterInfo.cs" />
+    <Compile Include="Assets\Scripte\DesignPatterns\StrategyPattern\RPG\CharacterMain.cs" />
     <Compile Include="Assets\Scripte\Master\KaserTools.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/lukekaser/Work/KaserSpace/DesignPatterns/DesignPatterns/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
