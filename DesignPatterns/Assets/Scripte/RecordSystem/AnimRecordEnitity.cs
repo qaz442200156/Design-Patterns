@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AnimRecordEnitity : RecordEnitity
 {
+    public AnimatorControllerParameter animatorController;
     public AnimationCurve animTime = new AnimationCurve();
     public List<animNameInfo> animName = new List<animNameInfo>();
     public List<int> allStateNams = new List<int>();
@@ -12,7 +13,9 @@ public class AnimRecordEnitity : RecordEnitity
     {
         public int name;//NameHash
         public float changeTime;
-
+        public float crossFadeDuration = 0;
+        public float startCrossFadeTime = -1;
+        public bool isDoneCrossFade;
         public animNameInfo(int newName)
         {
             name = newName;
@@ -23,6 +26,7 @@ public class AnimRecordEnitity : RecordEnitity
     public int lastAnimNameHash;
     public float lastAnimNameStateLength;
     public int StateIndex;
+    public float lastTransitionDuration;
 
     public override void Start()
     {
@@ -74,14 +78,24 @@ public class AnimRecordEnitity : RecordEnitity
         }
         if (currentState != 0)
         {
+            float animatorTransitionInfo = animator.GetAnimatorTransitionInfo(0).duration;
+            if (animatorTransitionInfo > 0)
+            {
+                Data.Add(transform, time);
+                lastTransitionDuration = animatorTransitionInfo;
+            }
+
             if (lastAnimNameHash != currentState)
             {
                 if (animName.Count > 0)
                 {
                     animName.Last().changeTime = time;
                 }
+                Debug.Log(">>>>> " + lastTransitionDuration);
                 animNameInfo tmp = new animNameInfo(currentState);
+                tmp.crossFadeDuration = lastTransitionDuration;
                 lastAnimNameHash = currentState;
+                lastTransitionDuration = 0;
                 animName.Add(tmp);
             }
         }
@@ -122,15 +136,39 @@ public class AnimRecordEnitity : RecordEnitity
         }
         animNameInfo currentAnimInfo = animName[StateIndex];
 
+
+
         if (StateIndex < animName.Count - 1 && time > currentAnimInfo.changeTime)
         {
             if (currentAnimInfo.changeTime > 0 && animName.Count > 1)
             {
+                animName[StateIndex].isDoneCrossFade = false;
+                animName[StateIndex].startCrossFadeTime = -1;
                 StateIndex++;
                 currentAnimInfo = animName[StateIndex];
             }
         }
-        animator.Play(currentAnimInfo.name, 0, animTime.Evaluate(time));
+
+        if (!currentAnimInfo.isDoneCrossFade && StateIndex > 0) {
+            animator.enabled = false;
+            if (currentAnimInfo.startCrossFadeTime == -1)
+            {
+                currentAnimInfo.startCrossFadeTime = time;
+            }
+            float duration = time - currentAnimInfo.startCrossFadeTime;
+            if (duration >= currentAnimInfo.crossFadeDuration)
+            {
+                currentAnimInfo.isDoneCrossFade = true;
+                animator.enabled = true;
+            }
+            else
+            {
+                Data.Set(time,transform);
+            }
+        }
+        else { 
+            animator.Play( currentAnimInfo.name , 0, animTime.Evaluate(time+ currentAnimInfo.crossFadeDuration));
+        }
     }
 
     public override void ReplayEnd()
