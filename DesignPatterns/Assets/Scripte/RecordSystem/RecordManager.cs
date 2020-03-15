@@ -36,7 +36,7 @@ public class RecordManager : MonoBehaviour
     public float _startTime;
     public float startTime;
     public float endTime;
-    public float loopTime;
+    public float loopTime = 10;
 
     #endregion Time
 
