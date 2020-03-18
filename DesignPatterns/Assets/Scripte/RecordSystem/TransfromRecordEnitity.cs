@@ -20,7 +20,7 @@
         base.PerReplayInit();
     }
 
-    public override void RePlay(float time)
+    public override void RePlay(float time, float timeScale)
     {
         Data.Set(time, this.transform);
     }

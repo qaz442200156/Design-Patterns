@@ -12,12 +12,13 @@ public class RecordManager : MonoBehaviour
     public bool isReplaying = false;
     public bool isReplayPause = false;
     public bool needReStart = false;
+    public bool stopTimeScaleAtStopOrReplayEnd = true;
     public int replayIndex = 0;
     public int autoStopRecordInSeconds;
 
     #region Event
 
-    public Action<float> OnReplayTimeChange;
+    public Action<float,float> OnReplayTimeChange;
     public Action<float> OnEndRecord;
     public Action OnBeginStart;
     public Action OnReplayStart;
@@ -86,6 +87,10 @@ public class RecordManager : MonoBehaviour
             return;
         }
 
+        if (stopTimeScaleAtStopOrReplayEnd)
+        {
+            Time.timeScale = 1;
+        }
         OnBeginStart();
         isReplaying = false;
         isRecording = true;
@@ -104,6 +109,10 @@ public class RecordManager : MonoBehaviour
         endTime = Time.unscaledTime - _startTime;
         startTime = Mathf.Max(endTime - loopTime, 0);
         OnEndRecord(endTime);
+        if (stopTimeScaleAtStopOrReplayEnd)
+        {
+            Time.timeScale = 0;
+        }
     }
 
     public void Replay()
@@ -113,6 +122,7 @@ public class RecordManager : MonoBehaviour
             return;
         }
 
+        Time.timeScale = 1;
         replayIndex = 0;
         isReplaying = true;
         isReplayPause = false;
@@ -123,7 +133,7 @@ public class RecordManager : MonoBehaviour
             slider.minValue = startTime;
             slider.maxValue = endTime;
         }
-        OnReplayTimeChange(0);
+        OnReplayTimeChange(0,Time.timeScale);
         OnReplayStart();
         Time.timeScale = 1;
     }
@@ -138,6 +148,10 @@ public class RecordManager : MonoBehaviour
         isReplaying = false;
         isReplayPause = false;
         OnReplayEnd();
+        if (stopTimeScaleAtStopOrReplayEnd)
+        {
+            Time.timeScale = 0;
+        }
     }
 
     public void Update()
@@ -164,23 +178,36 @@ public class RecordManager : MonoBehaviour
             }
         }
 
-        if (isReplaying && isReplayPause == false)
+        if (isReplaying)
         {
-            slider.value += Time.deltaTime * Time.timeScale;
-            OnReplayTimeChange(slider.value);
-            if (slider.value >= slider.maxValue)
+            if (isReplayPause == false)
             {
-                isReplaying = false;
-                isReplayPause = true;
+                slider.value += Time.deltaTime * Time.timeScale;
+                OnReplayTimeChange(slider.value, Time.timeScale);
+                if (slider.value >= slider.maxValue)
+                {
+                    isReplaying = false;
+                    isReplayPause = true;
+                    if (stopTimeScaleAtStopOrReplayEnd) { 
+                        EndReplay();// For Test need be delete when real to use 
+                    }
+                }
+            }
+            else {
+                OnReplayTimeChange(slider.value, 0);
             }
         }
+    }
+
+    public void ReplayPause() {
+        isReplayPause = !isReplayPause;
     }
 
     public void SetCursor(Single v)
     {
         if (isReplayPause)
         {
-            OnReplayTimeChange(v + startTime);
+            OnReplayTimeChange(v + startTime, Time.timeScale);
         }
     }
 

@@ -334,7 +334,7 @@ public class RecordEnitity : MonoBehaviour
         }
     }
 
-    public virtual void RePlay(float time)
+    public virtual void RePlay(float time, float timeScale)
     {
     }
 

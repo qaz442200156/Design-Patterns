@@ -130,7 +130,7 @@ public class ActiveStateRecordEnitity : RecordEnitity
         }
     }
 
-    public override void RePlay(float time)
+    public override void RePlay(float time,float timeScale)
     {
         foreach (ActiveStatePack recordObj in stateList)
         {

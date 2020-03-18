@@ -46,9 +46,9 @@ public class TailRenderRecordEnitity : RecordEnitity
         trail.emitting = trailStates[stateIndex].activeState;
     }
 
-    public override void RePlay(float time)
+    public override void RePlay(float time, float timeScale)
     {
-        base.RePlay(time);
+        base.RePlay(time, timeScale);
 
         if (trailStates.Count <= 0)
         {

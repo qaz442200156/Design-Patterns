@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using CurveExtended;
 
 public class AnimRecordEnitity : RecordEnitity
 {
@@ -151,32 +152,8 @@ public class AnimRecordEnitity : RecordEnitity
     public override void PerReplayInit()
     {
         base.PerReplayInit();
-        AnimationCurve animTimeTmp = new AnimationCurve();
-        for (int i = 0; i < animTime.length; i++)
-        {
-            if (i + 1 < animTime.length)
-            {
-                Keyframe K1 = animTime[i];
-                Keyframe K2 = animTime[i + 1];
-                float w = K2.time - K1.time;
-                float h = K2.value - K1.value;
-                Vector2 start = new Vector2(K1.time, K1.value * h);
-                Vector2 end = new Vector2(K2.time , K2.value * h);
-                float d = (end.x - start.x) / 3.0f;
-                float a = h / w;
-                Vector2 st = start + new Vector2(d, d * a );
-                Vector2 et = end + new Vector2(-d, -d * a );
+        animTime.UpdateAllLinearTangents();
 
-
-                Vector2 v1 = new Vector2(st.x, st.y);
-                Vector2 v2 = new Vector2(et.x, et.y);
-                animTimeTmp.AddKey(new Keyframe(animTime[i].time, animTime[i].value, v2.y / v2.x , v1.y / v1.x ));
-            }else
-            {
-                animTimeTmp.AddKey(animTime[i]);
-            }
-        }
-        animTime = animTimeTmp;
         animator.enabled = true;
         animator.speed = 0;
         StateIndex = 0;
@@ -200,7 +177,7 @@ public class AnimRecordEnitity : RecordEnitity
         }
     }
 
-    public override void RePlay(float time)
+    public override void RePlay(float time, float timeScale)
     {
         if (animName == null || StateIndex >= animName.Count || animName.Count == 0)
         {
@@ -208,8 +185,6 @@ public class AnimRecordEnitity : RecordEnitity
             return;
         }
         animNameInfo currentAnimInfo = animName[StateIndex];
-
-
 
         if (StateIndex < animName.Count - 1 && time > currentAnimInfo.changeTime)
         {
@@ -230,11 +205,11 @@ public class AnimRecordEnitity : RecordEnitity
                 currentAnimInfo.isStartCrossFade = true;
                 animator.CrossFade(currentAnimInfo.nextStateName, currentAnimInfo.crossFadeDuration, 0);
             }
-            animator.speed = 1;
+            animator.speed = 1 * timeScale;
             float duration = time - currentAnimInfo.startCrossFadeTime;
             if (duration >= currentAnimInfo.crossFadeDuration)
             {
-                animator.speed = 0;
+                animator.speed = 0 * timeScale;
                 currentAnimInfo.isDoneCrossFade = true;
             }
             return;
@@ -247,14 +222,15 @@ public class AnimRecordEnitity : RecordEnitity
     public override void ReplayEnd()
     {
         base.ReplayEnd();
+        /*
         animTime = new AnimationCurve();
         animName = new List<animNameInfo>();
-        StateIndex = 0;
+        StateIndex = 0;*/
     }
 
     public Keyframe createKey(float time, float value)
     {
-        Keyframe tmp = new Keyframe(time, value);
+        Keyframe tmp = KeyframeUtil.GetNew(time, value, TangentMode.Smooth, TangentMode.Smooth);
         return tmp;
     }
 }

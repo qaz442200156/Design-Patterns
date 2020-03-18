@@ -151,7 +151,7 @@ public class ParticleRecordEnitity : RecordEnitity
         particle.Play(true);
     }
 
-    public override void RePlay(float time)
+    public override void RePlay(float time, float timeScale)
     {
         Data.Set(time, this.transform);
         if (emissionState.Count > 0 && replayIndex < emissionState.Count - 1 && time >= emissionState[replayIndex].changeTime)

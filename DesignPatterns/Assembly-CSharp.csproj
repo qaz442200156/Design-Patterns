@@ -108,6 +108,8 @@
     <Compile Include="Assets\Scripte\RecordSystem\TailRenderRecordEnitity.cs" />
     <Compile Include="Assets\Scripte\RecordSystem\TestCrossFade.cs" />
     <Compile Include="Assets\Scripte\RecordSystem\TransfromRecordEnitity.cs" />
+    <Compile Include="Assets\Scripte\RecordSystem\Util\CurveExtension.cs" />
+    <Compile Include="Assets\Scripte\RecordSystem\Util\KeyframeUtil.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/lukekaser/Work/KaserSpace/DesignPatterns/DesignPatterns/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
